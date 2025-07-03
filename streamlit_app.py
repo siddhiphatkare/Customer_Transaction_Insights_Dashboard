@@ -65,12 +65,12 @@ st.markdown("We're using e-commerce transaction data to generate insights — cu
 
 # Summary KPIs
 st.subheader("Key Performance Indicators")
-total_customers = filtered_df['is_returning_customer'].nunique()
+total_customer_types = filtered_df['is_returning_customer'].nunique()
 total_transactions = filtered_df.shape[0]
 avg_purchases = filtered_df['previous_purchases'].mean()
 
 col1, col2, col3 = st.columns(3)
-col1.metric("Total Customers", total_customers)
+col1.metric("Customer Types Present", total_customer_types)
 col2.metric("Total Transactions", total_transactions)
 col3.metric("Average Previous Purchases", f"{avg_purchases:.2f}")
 

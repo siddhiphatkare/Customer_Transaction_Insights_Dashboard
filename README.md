@@ -41,7 +41,7 @@ Then open the URL provided in the terminal (usually http://localhost:8501 or htt
 
 ## Project Structure
 
-- `Customer_Transaction_Insights_Dashboard.ipynb`: Jupyter notebook with exploratory data analysis.
+- `Customer_Transaction_Insights_Dashboard.ipynb`: Jupyter notebook with enhanced exploratory data analysis including summary KPIs, interactive filters, and improved storytelling.
 - `streamlit_app.py`: Streamlit app providing an interactive dashboard.
 - `shopping_trends.csv`: Dataset used for analysis.
 - `README.md`: Project documentation.

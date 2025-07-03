@@ -63,11 +63,34 @@ filtered_df = filtered_df[filtered_df['is_returning_customer'].isin(selected_cus
 st.title("Customer Transaction Insights Dashboard")
 st.markdown("We're using e-commerce transaction data to generate insights — customer segmentation, payment patterns, and churn analysis.")
 
+# Summary KPIs
+st.subheader("Key Performance Indicators")
+total_customers = filtered_df['is_returning_customer'].nunique()
+total_transactions = filtered_df.shape[0]
+avg_purchases = filtered_df['previous_purchases'].mean()
+
+col1, col2, col3 = st.columns(3)
+col1.metric("Total Customers", total_customers)
+col2.metric("Total Transactions", total_transactions)
+col3.metric("Average Previous Purchases", f"{avg_purchases:.2f}")
+
 if show_segmentation:
     st.subheader("Customer Segmentation")
     st.caption("Are people coming back, or just testing the waters?")
     segment_counts = filtered_df['is_returning_customer'].value_counts().rename({0: 'New', 1: 'Returning'})
-    st.bar_chart(segment_counts)
+    fig, ax = plt.subplots(1, 2, figsize=(12, 5))
+
+    # Bar plot
+    sns.barplot(x=segment_counts.index, y=segment_counts.values, hue=segment_counts.index, palette='pastel', legend=False, ax=ax[0])
+    ax[0].set_title("Customer Segmentation: New vs Returning (Bar Plot)")
+    ax[0].set_ylabel("Number of Customers")
+
+    # Pie chart
+    colors = sns.color_palette('pastel')[0:2]
+    ax[1].pie(segment_counts.values, labels=segment_counts.index, colors=colors, autopct='%1.1f%%', startangle=140)
+    ax[1].set_title("Customer Segmentation: New vs Returning (Pie Chart)")
+
+    st.pyplot(fig)
 
 if show_purchase_count:
     st.subheader("Previous Purchase Count")
@@ -79,7 +102,20 @@ if show_payment_pref:
     st.subheader("Payment Method Preferences")
     st.caption("Let’s see what people actually use when they pay.")
     payment_counts = filtered_df['payment_method'].value_counts()
-    st.bar_chart(payment_counts)
+    fig, ax = plt.subplots(1, 2, figsize=(12, 5))
+
+    # Count plot
+    sns.countplot(data=filtered_df, y='payment_method', order=payment_counts.index, hue='payment_method', palette="Set2", legend=False, ax=ax[0])
+    ax[0].set_title("Payment Method Usage (Count Plot)")
+    ax[0].set_xlabel("Count")
+    ax[0].set_ylabel("Payment Method")
+
+    # Pie chart
+    colors = sns.color_palette('Set2')[0:len(payment_counts)]
+    ax[1].pie(payment_counts.values, labels=payment_counts.index, colors=colors, autopct='%1.1f%%', startangle=140)
+    ax[1].set_title("Payment Method Usage (Pie Chart)")
+
+    st.pyplot(fig)
 
 if show_purchase_freq:
     st.subheader("Frequency of Purchases")

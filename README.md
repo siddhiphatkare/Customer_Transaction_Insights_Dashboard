@@ -43,8 +43,9 @@ Then open the URL provided in the terminal (usually http://localhost:8501 or htt
 
 ## 🌐Live Demo
 
-You can access the live deployed dashboard here: 
+You can access the live deployed dashboard here:  
 [Customer Transaction Insights Dashboard](https://customer-insights-dashboard.streamlit.app/)
+
 
 ## 📊 Using the Dashboard
 

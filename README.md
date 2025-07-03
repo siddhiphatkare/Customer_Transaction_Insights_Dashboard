@@ -1,6 +1,7 @@
+
 # Customer Transaction Insights Dashboard
 
-This project analyzes a simulated e-commerce dataset to generate business insights, including customer segmentation, payment behavior, transaction frequency, and churn. It demonstrates practical skills in data cleaning, visualization, and interactive dashboard creation using Streamlit.
+This project analyzes a simulated e-commerce dataset to generate actionable business insights, including customer segmentation, payment behavior, transaction frequency, and churn. It demonstrates practical skills in data cleaning, visualization, and interactive dashboard creation using Streamlit.
 
 ## Features
 
@@ -22,15 +23,23 @@ This project analyzes a simulated e-commerce dataset to generate business insigh
 pip install -r requirements.txt
 ```
 
-### Running the Streamlit App
+### Running the Streamlit App Locally
 
-To launch the interactive dashboard, run:
+To launch the interactive dashboard locally, run:
 
 ```bash
 streamlit run streamlit_app.py
 ```
 
 Then open the URL provided in the terminal (usually http://localhost:8501 or http://localhost:8502).
+
+### Deploying to Streamlit Cloud
+
+1. Push your project repository to GitHub.
+2. Go to [Streamlit Cloud](https://streamlit.io/cloud) and sign in.
+3. Click "New app" and select your GitHub repository and branch.
+4. Configure the app settings if needed and deploy.
+5. Your app will be live with a public URL you can share.
 
 ### Using the Dashboard
 
@@ -57,3 +66,5 @@ This project helps businesses understand customer behavior, identify churn risks
 - Incorporate more granular time-series forecasting.
 - Enhance dashboard with additional interactive visualizations.
 - Deploy the app to a cloud platform for wider accessibility.
+
+pip install -r requirements.txt

@@ -46,7 +46,7 @@ Then open the URL provided in the terminal (usually http://localhost:8501 or htt
 You can access the live deployed dashboard here: 
 [Customer Transaction Insights Dashboard](https://customer-insights-dashboard.streamlit.app/)
 
-##📊 Using the Dashboard
+## 📊 Using the Dashboard
 
 - Use the sidebar filters to select date ranges, customer types (New, Returning), and payment methods.
 - Adjust the churn threshold slider to define what counts as churned customers.

@@ -111,7 +111,8 @@ jupyter notebook Customer_Transaction_Insights_Dashboard.ipynb
 - Add clustering for automatic segmentation (KMeans or RFM)
 - Include predictive churn modeling
 - Export PDF reports or schedule auto-emails
-- Optional: Power BI version for business-side stakeholders
+- Optional: Power BI version for business-side stakeholders  
+  *(see [`OPTIONAL_PowerBI_Guide.md`](OPTIONAL_PowerBI_Guide.md) for planned structure)*
 
 ---
 

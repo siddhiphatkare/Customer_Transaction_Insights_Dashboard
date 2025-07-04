@@ -59,7 +59,6 @@ This project helps answer key business questions like:
 </p>
 
 <p align="center">
-</p>
 
 ---
 

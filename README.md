@@ -44,13 +44,21 @@ This project helps answer key business questions like:
 ### 🔹 Dashboard Overview
 
 <p align="center">
-  <img src="images/segment_barplot.png" width="30%" alt="Customer Segmentation"/>
-  <img src="images/kpi_metrics.png" width="30%" alt="KPI Metrics Overview"/>
-  <img src="images/time_trend.png" width="30%" alt="Time-Based Transaction Trends"/>
+  <figure style="display: inline-block; margin: 0 10px; text-align: center;">
+    <img src="images/segment_barplot.png" width="30%" alt="Customer Segmentation"/>
+    <figcaption>Customer Segmentation</figcaption>
+  </figure>
+  <figure style="display: inline-block; margin: 0 10px; text-align: center;">
+    <img src="images/kpi_metrics.png" width="30%" alt="KPI Metrics Overview"/>
+    <figcaption>KPI Metrics</figcaption>
+  </figure>
+  <figure style="display: inline-block; margin: 0 10px; text-align: center;">
+    <img src="images/time_trend.png" width="30%" alt="Time-Based Transaction Trends"/>
+    <figcaption>Time-Based Trends</figcaption>
+  </figure>
 </p>
 
 <p align="center">
-  <em>Left: Customer Segmentation · Center: KPI Metrics · Right: Time-Based Trends</em>
 </p>
 
 ---

@@ -43,8 +43,6 @@ This project helps answer key business questions like:
 
 ### 🔹 Dashboard Overview
 
-### 🔹 Dashboard Overview
-
 | ![](images/segment_barplot.png) <br> **Customer Segmentation** | ![](images/kpi_metrics.png) <br> **KPI Metrics** | ![](images/time_based_trends.png) <br> **Time-Based Trends** |
 |:--:|:--:|:--:|
 

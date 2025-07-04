@@ -1,6 +1,6 @@
 # 💳 Customer Transaction Insights Dashboard
 
-An interactive end-to-end data analysis dashboard to uncover customer behavior, transaction patterns, and generate actionable business insights using a PayPal-like dataset.
+An interactive end-to-end data analysis dashboard to uncover customer behavior, transaction patterns, and generate actionable business insights using a real-world transaction dataset.
 
 🔗 **Live App**: [customer-insights-dashboard.streamlit.app](https://customer-insights-dashboard.streamlit.app/)  
 📂 **Source Code**: [GitHub Repo](https://github.com/siddhiphatkare/Customer_Transaction_Insights_Dashboard)

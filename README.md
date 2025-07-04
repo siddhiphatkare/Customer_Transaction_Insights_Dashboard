@@ -43,22 +43,11 @@ This project helps answer key business questions like:
 
 ### 🔹 Dashboard Overview
 
-<p align="center">
-  <figure style="display: inline-block; margin: 0 10px; text-align: center;">
-    <img src="images/segment_barplot.png" width="30%" alt="Customer Segmentation"/>
-    <figcaption>Customer Segmentation</figcaption>
-  </figure>
-  <figure style="display: inline-block; margin: 0 10px; text-align: center;">
-    <img src="images/kpi_metrics.png" width="30%" alt="KPI Metrics Overview"/>
-    <figcaption>KPI Metrics</figcaption>
-  </figure>
-  <figure style="display: inline-block; margin: 0 10px; text-align: center;">
-    <img src="images/time_trend.png" width="30%" alt="Time-Based Transaction Trends"/>
-    <figcaption>Time-Based Trends</figcaption>
-  </figure>
-</p>
+| Customer Segmentation | KPI Metrics | Time-Based Trends |
+|------------------------|-------------|--------------------|
+| ![](images/segment_barplot.png) | ![](images/kpi_metrics.png) | ![](images/time_trend.png) |
 
-<p align="center">
+<sub><p align="center">Left: Customer Segmentation · Center: KPI Metrics · Right: Time-Based Trends</p></sub>
 
 ---
 
@@ -71,8 +60,6 @@ This project helps answer key business questions like:
 <p align="center">
   <em>Excel Summary Sheet: KPIs · Timestamp · Segmentation · Charts</em>
 </p>
-
----
 
 ## ▶️ How to Run Locally
 
@@ -112,7 +99,6 @@ jupyter notebook Customer_Transaction_Insights_Dashboard.ipynb
 > 🔹 **New customers dominate transaction volume**, but returning customers contribute more consistently over time
 
 ---
-
 ## 🔮 Future Improvements
 
 - Add clustering for automatic segmentation (KMeans or RFM)

@@ -43,11 +43,10 @@ This project helps answer key business questions like:
 
 ### 🔹 Dashboard Overview
 
-| Customer Segmentation | KPI Metrics | Time-Based Trends |
-|------------------------|-------------|--------------------|
-| ![](images/segment_barplot.png) | ![](images/kpi_metrics.png) | ![](images/time_trend.png) |
+### 🔹 Dashboard Overview
 
-<sub><p align="center">Left: Customer Segmentation · Center: KPI Metrics · Right: Time-Based Trends</p></sub>
+| ![](images/segment_barplot.png) <br> **Customer Segmentation** | ![](images/kpi_metrics.png) <br> **KPI Metrics** | ![](images/time_based_trends.png) <br> **Time-Based Trends** |
+|:--:|:--:|:--:|
 
 ---
 

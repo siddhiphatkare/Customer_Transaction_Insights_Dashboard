@@ -28,7 +28,6 @@ An interactive end-to-end data analysis dashboard that simulates how a data anal
 - [✨ Author](#-author)
 - [🙌 Support & Connect](#-support--connect)
 - [🤝 Contributing](#-contributing)
-- [🐛 Issues](#-issues)
 
 ---
 

@@ -300,6 +300,8 @@ Fork it, build on top of it, or reach out to collaborate.
 
 📬 Let's connect on [LinkedIn](https://www.linkedin.com/in/siddhi-phatkare-a78552250/)!
 
+Have an idea, bug, or feature request? 👉 [Open an issue](https://github.com/siddhiphatkare/Customer_Transaction_Insights_Dashboard/issues)
+
 ---
 
 ## 🤝 Contributing

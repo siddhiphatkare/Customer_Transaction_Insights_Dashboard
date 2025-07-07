@@ -301,3 +301,23 @@ Fork it, build on top of it, or reach out to collaborate.
 📬 Let's connect on [LinkedIn](https://www.linkedin.com/in/siddhi-phatkare-a78552250/)!
 
 ---
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome!  
+Feel free to check the [issues page](https://github.com/siddhiphatkare/Customer_Transaction_Insights_Dashboard/issues) or open a new one.
+
+If you'd like to contribute:
+- Fork the repo
+- Create your feature branch (`git checkout -b feature/new-feature`)
+- Commit your changes
+- Push to the branch
+- Open a pull request 🚀
+
+ ---
+
+ ## 🐛 Issues
+
+If you encounter any bugs or have ideas for enhancements, please [open an issue](https://github.com/siddhiphatkare/Customer_Transaction_Insights_Dashboard/issues).
+
+---

@@ -105,9 +105,6 @@ This project uses the following tech stack:
 - [![Streamlit](https://img.shields.io/badge/Streamlit-App-red?logo=streamlit)](https://streamlit.io/)
 - [![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-brightgreen?logo=jupyter&logoColor=white)](https://jupyter.org/)
 
-
-> 📊 Built with love and Python for real-time customer insights.
-
 ---
 
 ## 🛠️ System Requirements

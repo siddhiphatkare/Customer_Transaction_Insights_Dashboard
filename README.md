@@ -313,6 +313,7 @@ DEFAULT_CHART_THEME = 'plotly_white'
 [![Streamlit](https://img.shields.io/badge/Streamlit-App-green)](https://streamlit.io/)  
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)  
 [![GitHub Stars](https://img.shields.io/github/stars/siddhiphatkare/Customer_Transaction_Insights_Dashboard?style=social)](https://github.com/siddhiphatkare/Customer_Transaction_Insights_Dashboard/stargazers)
+[![Uptime Status](https://stats.uptimerobot.com/api/status/CcMCwisBuV)](https://stats.uptimerobot.com/CcMCwisBuV)
 
 ---
 

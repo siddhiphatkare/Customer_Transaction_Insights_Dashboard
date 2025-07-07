@@ -309,20 +309,6 @@ DEFAULT_CHART_THEME = 'plotly_white'
 
 ---
 
-## 🏅 Badges
-
-[![Streamlit](https://img.shields.io/badge/Streamlit-App-green)](https://streamlit.io/)  
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)  
-[![GitHub Stars](https://img.shields.io/github/stars/siddhiphatkare/Customer_Transaction_Insights_Dashboard?style=social)](https://github.com/siddhiphatkare/Customer_Transaction_Insights_Dashboard/stargazers)
-[![Uptime Robot status](https://img.shields.io/uptimerobot/status/m800893009)](https://stats.uptimerobot.com/CcMCwisBuV)
-
----
-
-> 📊 A Python + Streamlit dashboard for customer segmentation, churn analysis, and time-based insights.  
-> View clean capsule KPIs, filter live data, and export Excel reports — all in one click.
-
----
-
 ## ✨ Author
 
 **Built by [Siddhi Phatkare](https://www.linkedin.com/in/siddhi-phatkare-a78552250/)**  
@@ -336,6 +322,22 @@ DEFAULT_CHART_THEME = 'plotly_white'
 
 Licensed under the [MIT License](LICENSE).  
 Open for learning & inspiration — not for rehosting or resale.
+
+---
+
+## 🏅 Badges
+
+[![Streamlit](https://img.shields.io/badge/Streamlit-App-green)](https://streamlit.io/)  
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)  
+[![GitHub Stars](https://img.shields.io/github/stars/siddhiphatkare/Customer_Transaction_Insights_Dashboard?style=social)](https://github.com/siddhiphatkare/Customer_Transaction_Insights_Dashboard/stargazers)
+[![Uptime Robot status](https://img.shields.io/uptimerobot/status/m800893009)](https://stats.uptimerobot.com/CcMCwisBuV)
+
+---
+
+> 📊 A Python + Streamlit dashboard for customer segmentation, churn analysis, and time-based insights.  
+> View clean capsule KPIs, filter live data, and export Excel reports — all in one click.
+
+---
 
 ## 🙌 Support & Connect
 

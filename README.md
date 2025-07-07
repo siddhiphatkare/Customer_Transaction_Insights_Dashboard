@@ -9,6 +9,29 @@ An interactive end-to-end data analysis dashboard that simulates how a data anal
 
 ---
 
+## 📚 Table of Contents
+
+- [🚀 Quick Start](#-quick-start)
+- [📌 Objective](#-objective)
+- [📸 Dashboard Preview](#-dashboard-preview)
+- [🚀 Features](#-features)
+- [🛠️ System Requirements](#️-system-requirements)
+- [⚙️ Installation](#️-installation)
+- [📊 Dataset Information](#-dataset-information)
+- [🧩 Usage Guide](#-usage-guide)
+- [📐 System Design](#-system-design)
+- [🏗️ Project Structure](#-project-structure)
+- [🔧 Customization & Scalability](#-customization--scalability)
+- [🧠 Ideal Use Cases](#-ideal-use-cases)
+- [🔍 Troubleshooting](#-troubleshooting)
+- [🏅 Badges](#-badges)
+- [✨ Author](#-author)
+- [🙌 Support & Connect](#-support--connect)
+- [🤝 Contributing](#-contributing)
+- [🐛 Issues](#-issues)
+
+---
+
 ## 🚀 Quick Start
 
 ### Option 1: Direct Streamlit Dashboard (Recommended)
@@ -69,6 +92,21 @@ Simulate how a data analyst would extract insights from transaction data for seg
 - **Predictive Insights**: Churn probability scoring
 - **Cohort Analysis**: Customer lifecycle tracking
 - **Revenue Attribution**: Channel performance analysis
+
+---
+
+## 🧰 Built With
+
+This project uses the following tech stack:
+
+- ![Python](https://img.shields.io/badge/Python-3.8%2B-blue?logo=python&logoColor=white)  
+- ![Pandas](https://img.shields.io/badge/Pandas-Data%20Manipulation-yellow?logo=pandas&logoColor=black)  
+- ![Seaborn](https://img.shields.io/badge/Seaborn-Statistical%20Graphics-lightblue?logo=seaborn&logoColor=black)  
+- ![Plotly](https://img.shields.io/badge/Plotly-Interactive%20Charts-orange?logo=plotly&logoColor=white)  
+- ![Streamlit](https://img.shields.io/badge/Streamlit-App-red?logo=streamlit)  
+- ![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-brightgreen?logo=jupyter&logoColor=white)  
+
+> 📊 Built with love and Python for real-time customer insights.
 
 ---
 
@@ -201,7 +239,7 @@ columns = {
 
 ---
 
-## 🏗️ Architecture Overview
+## 📐 System Design
 
 ```
 ┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
@@ -286,7 +324,8 @@ DEFAULT_CHART_THEME = 'plotly_white'
 
 ## ✨ Author
 
-Built by [Siddhi Phatkare](https://www.linkedin.com/in/siddhi-phatkare-a78552250/).  
+Built by [Siddhi Phatkare](https://www.linkedin.com/in/siddhi-phatkare-a78552250/). 
+[![GitHub: siddhiphatkare](https://img.shields.io/badge/GitHub-@siddhiphatkare-black?logo=github)](https://github.com/siddhiphatkare)
 Licensed under the [MIT License](LICENSE).  
 Open for learning & inspiration, not rehosting.
 
@@ -300,26 +339,12 @@ Fork it, build on top of it, or reach out to collaborate.
 
 📬 Let's connect on [LinkedIn](https://www.linkedin.com/in/siddhi-phatkare-a78552250/)!
 
-Have an idea, bug, or feature request? 👉 [Open an issue](https://github.com/siddhiphatkare/Customer_Transaction_Insights_Dashboard/issues)
+🐞 Found a bug or want to request a feature? [Open an issue here](https://github.com/siddhiphatkare/Customer_Transaction_Insights_Dashboard/issues)
 
 ---
 
-## 🤝 Contributing
-
-Contributions, issues, and feature requests are welcome!  
-Feel free to check the [issues page](https://github.com/siddhiphatkare/Customer_Transaction_Insights_Dashboard/issues) or open a new one.
-
-If you'd like to contribute:
-- Fork the repo
-- Create your feature branch (`git checkout -b feature/new-feature`)
-- Commit your changes
-- Push to the branch
-- Open a pull request 🚀
-
- ---
-
- ## 🐛 Issues
-
-If you encounter any bugs or have ideas for enhancements, please [open an issue](https://github.com/siddhiphatkare/Customer_Transaction_Insights_Dashboard/issues).
+Made with ❤️ by [Siddhi Phatkare](https://www.linkedin.com/in/siddhi-phatkare-a78552250/)  
+📊 Empowering data-driven storytelling, one dashboard at a time.
 
 ---
+**Tags**: Data Analysis, Python, Streamlit, Dashboard, Customer Insights, Freelance, Portfolio, Excel Export, Interactive Visualizations

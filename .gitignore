@@ -1,0 +1,26 @@
+# 🔽 Python Bytecode & Caches
+__pycache__/
+*.py[cod]
+*.so
+
+# 🔽 Virtual Environments
+venv/
+.env
+
+# 🔽 Jupyter Notebook Checkpoints
+.ipynb_checkpoints/
+
+# 🔽 Streamlit/Log Files
+*.log
+
+# 🔽 Output Files
+*.csv
+*.xlsx
+
+# 🔽 System Files
+.DS_Store
+Thumbs.db
+
+# 🔽 IDE Config
+.vscode/
+.idea/

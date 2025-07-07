@@ -256,15 +256,15 @@ columns = {
 ```
 
 Customer_Transaction_Insights_Dashboard/
-├── streamlit_app.py                           # Main dashboard application
-├── Customer_Transaction_Insights_Dashboard.ipynb # Detailed analysis notebook
-├── requirements.txt                           # Python dependencies
-├── shopping_trends.csv                        # Sample dataset
-├── utils.py                                  # Utility functions
-├── images/                                   # Dashboard screenshots
+├── streamlit_app.py                               # Main dashboard application
+├── Customer_Transaction_Insights_Dashboard.ipynb  # Detailed analysis notebook
+├── requirements.txt                               # Python dependencies
+├── shopping_trends.csv                            # Sample dataset
+├── utils.py                                       # Utility functions
+├── images/                                        # Dashboard screenshot
 │    dashboard_preview.png
-├── README.md                                 # This file
-└── LICENSE                                   # MIT License
+├── README.md                                      # This file
+└── LICENSE                                        # MIT License
 
 ```
 ---

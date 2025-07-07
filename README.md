@@ -28,7 +28,6 @@ An interactive end-to-end data analysis dashboard that simulates how a data anal
 - [✨ Author](#-author)
 - [🙌 Support & Connect](#-support--connect)
 - [🤝 Contributing](#-contributing)
-- [🐛 Issues](#-issues)
 
 ---
 
@@ -99,14 +98,12 @@ Simulate how a data analyst would extract insights from transaction data for seg
 
 This project uses the following tech stack:
 
-- ![Python](https://img.shields.io/badge/Python-3.8%2B-blue?logo=python&logoColor=white)  
-- ![Pandas](https://img.shields.io/badge/Pandas-Data%20Manipulation-yellow?logo=pandas&logoColor=black)  
-- ![Seaborn](https://img.shields.io/badge/Seaborn-Statistical%20Graphics-lightblue?logo=seaborn&logoColor=black)  
-- ![Plotly](https://img.shields.io/badge/Plotly-Interactive%20Charts-orange?logo=plotly&logoColor=white)  
-- ![Streamlit](https://img.shields.io/badge/Streamlit-App-red?logo=streamlit)  
-- ![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-brightgreen?logo=jupyter&logoColor=white)  
-
-> 📊 Built with love and Python for real-time customer insights.
+- [![Python](https://img.shields.io/badge/Python-3.8%2B-blue?logo=python&logoColor=white)](https://www.python.org/)
+- [![Pandas](https://img.shields.io/badge/Pandas-Data%20Manipulation-yellow?logo=pandas&logoColor=black)](https://pandas.pydata.org/)
+- [![Seaborn](https://img.shields.io/badge/Seaborn-Statistical%20Graphics-lightblue?logo=seaborn&logoColor=black)](https://seaborn.pydata.org/)
+- [![Plotly](https://img.shields.io/badge/Plotly-Interactive%20Charts-orange?logo=plotly&logoColor=white)](https://plotly.com/)
+- [![Streamlit](https://img.shields.io/badge/Streamlit-App-red?logo=streamlit)](https://streamlit.io/)
+- [![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-brightgreen?logo=jupyter&logoColor=white)](https://jupyter.org/)
 
 ---
 
@@ -257,15 +254,15 @@ columns = {
 ```
 
 Customer_Transaction_Insights_Dashboard/
-├── streamlit_app.py                           # Main dashboard application
-├── Customer_Transaction_Insights_Dashboard.ipynb # Detailed analysis notebook
-├── requirements.txt                           # Python dependencies
-├── shopping_trends.csv                        # Sample dataset
-├── utils.py                                  # Utility functions
-├── images/                                   # Dashboard screenshots
+├── streamlit_app.py                               # Main dashboard application
+├── Customer_Transaction_Insights_Dashboard.ipynb  # Detailed analysis notebook
+├── requirements.txt                               # Python dependencies
+├── shopping_trends.csv                            # Sample dataset
+├── utils.py                                       # Utility functions
+├── images/                                        # Dashboard screenshot
 │    dashboard_preview.png
-├── README.md                                 # This file
-└── LICENSE                                   # MIT License
+├── README.md                                      # This file
+└── LICENSE                                        # MIT License
 
 ```
 ---
@@ -309,25 +306,33 @@ DEFAULT_CHART_THEME = 'plotly_white'
 
 ---
 
+## ✨ Author
+
+**Built by [Siddhi Phatkare](https://www.linkedin.com/in/siddhi-phatkare-a78552250/)**  
+<br>
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?logo=linkedin)](https://www.linkedin.com/in/siddhi-phatkare-a78552250/)
+&nbsp;
+[![GitHub](https://img.shields.io/badge/GitHub-@siddhiphatkare-black?logo=github)](https://github.com/siddhiphatkare)
+
+<br>
+
+Licensed under the [MIT License](LICENSE).  
+Open for learning & inspiration — not for rehosting or resale.
+
+---
+
 ## 🏅 Badges
 
 [![Streamlit](https://img.shields.io/badge/Streamlit-App-green)](https://streamlit.io/)  
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)  
 [![GitHub Stars](https://img.shields.io/github/stars/siddhiphatkare/Customer_Transaction_Insights_Dashboard?style=social)](https://github.com/siddhiphatkare/Customer_Transaction_Insights_Dashboard/stargazers)
+[![Uptime Robot status](https://img.shields.io/uptimerobot/status/m800893009)](https://stats.uptimerobot.com/CcMCwisBuV)
 
 ---
 
 > 📊 A Python + Streamlit dashboard for customer segmentation, churn analysis, and time-based insights.  
 > View clean capsule KPIs, filter live data, and export Excel reports — all in one click.
-
----
-
-## ✨ Author
-
-Built by [Siddhi Phatkare](https://www.linkedin.com/in/siddhi-phatkare-a78552250/). 
-[![GitHub: siddhiphatkare](https://img.shields.io/badge/GitHub-@siddhiphatkare-black?logo=github)](https://github.com/siddhiphatkare)
-Licensed under the [MIT License](LICENSE).  
-Open for learning & inspiration, not rehosting.
 
 ---
 
@@ -347,4 +352,6 @@ Made with ❤️ by [Siddhi Phatkare](https://www.linkedin.com/in/siddhi-phatkar
 📊 Empowering data-driven storytelling, one dashboard at a time.
 
 ---
-**Tags**: Data Analysis, Python, Streamlit, Dashboard, Customer Insights, Freelance, Portfolio, Excel Export, Interactive Visualizations
+
+> **Tags**: Customer Transaction Dashboard, Streamlit Portfolio Project, Python Data Analysis, E-commerce Churn Analysis, Excel Export Tool, Real-time Insights
+

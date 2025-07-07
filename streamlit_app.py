@@ -334,10 +334,10 @@ st.markdown(f"### Showing data for **{start_date.strftime('%b %Y')}** to **{end_
 if st.sidebar.button("Reset All Filters"):
     st.experimental_rerun()
 
-# ⬇️ Visual separator
+#  Visual separator
 st.markdown("---")
 
-# 📥 Export section
+#  Export section
 st.subheader("📥 Export Data")
 st.markdown("Download the filtered dataset as an Excel report.")
 st.markdown("Click below to download the filtered Excel report ⬇️")
@@ -355,10 +355,10 @@ st.download_button(
     help='Download the filtered dataset as an Excel report',
 )
 
-# ⬇️ Spacing before footer
+# Spacing before footer
 st.markdown(" ")
 
-# 👤 Footer credit
+# Footer credit
 st.markdown(
     """
     <p style='text-align: center; color: #666; font-size: 14px; margin-top: 2rem;'>

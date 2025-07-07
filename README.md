@@ -325,7 +325,7 @@ DEFAULT_CHART_THEME = 'plotly_white'
 
 ## ✨ Author
 
-Built by [Siddhi Phatkare](https://www.linkedin.com/in/siddhi-phatkare-a78552250/).  
+Built by [![LinkedIn: siddhiphatkare](https://img.shields.io/badge/LinkedIn-Connect-blue?logo=linkedin)](https://www.linkedin.com/in/siddhi-phatkare-a78552250/)
 [![GitHub: siddhiphatkare](https://img.shields.io/badge/GitHub-@siddhiphatkare-black?logo=github)](https://github.com/siddhiphatkare)  
 Licensed under the [MIT License](LICENSE).  
 Open for learning & inspiration, not rehosting.
@@ -346,4 +346,6 @@ Made with ❤️ by [Siddhi Phatkare](https://www.linkedin.com/in/siddhi-phatkar
 📊 Empowering data-driven storytelling, one dashboard at a time.
 
 ---
-**Tags**: Data Analysis, Python, Streamlit, Dashboard, Customer Insights, Freelance, Portfolio, Excel Export, Interactive Visualizations
+
+> **Tags**: Customer Transaction Dashboard, Streamlit Portfolio Project, Python Data Analysis, E-commerce Churn Analysis, Excel Export Tool, Real-time Insights
+

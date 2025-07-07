@@ -325,10 +325,14 @@ DEFAULT_CHART_THEME = 'plotly_white'
 
 ## ✨ Author
 
-Built by [![LinkedIn: siddhiphatkare](https://img.shields.io/badge/LinkedIn-Connect-blue?logo=linkedin)](https://www.linkedin.com/in/siddhi-phatkare-a78552250/)
+## ✨ Author
+
+Built by [Siddhi Phatkare](https://www.linkedin.com/in/siddhi-phatkare-a78552250/)  
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?logo=linkedin)](https://www.linkedin.com/in/siddhi-phatkare-a78552250/)  
 [![GitHub: siddhiphatkare](https://img.shields.io/badge/GitHub-@siddhiphatkare-black?logo=github)](https://github.com/siddhiphatkare)  
-Licensed under the [MIT License](LICENSE).  
-Open for learning & inspiration, not rehosting.
+Licensed under the [MIT License](LICENSE)  
+
+> 🧠 Open for learning & inspiration — not for rehosting or resale.
 
 ## 🙌 Support & Connect
 

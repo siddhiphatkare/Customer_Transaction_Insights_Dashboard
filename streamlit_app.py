@@ -15,10 +15,18 @@ df = load_data()
 # Sidebar filters
 st.sidebar.header("Filters")
 
-# Date range filter with unique key to avoid duplicate ID error
+# Date range filters split into two separate inputs for independent control
 min_date = df['purchase_date'].min()
 max_date = df['purchase_date'].max()
-start_date, end_date = st.sidebar.date_input("Select date range", value=[min_date, max_date], min_value=min_date, max_value=max_date, key="date_range")
+
+start_date = st.sidebar.date_input("From date", value=min_date, min_value=min_date, max_value=max_date, key="start_date")
+end_date = st.sidebar.date_input("To date", value=max_date, min_value=min_date, max_value=max_date, key="end_date")
+
+# Ensure start_date is not after end_date
+if start_date > end_date:
+    st.sidebar.error("Error: 'From date' must be before or equal to 'To date'.")
+    # Optionally, prevent filtering with invalid range by resetting end_date to start_date
+    end_date = start_date
 
 # Customer type filter
 customer_type = st.sidebar.multiselect("Select customer type", options=['New', 'Returning'], default=['New', 'Returning'])
@@ -158,7 +166,7 @@ st.markdown(
 with st.container():
     st.markdown('<div class="fixed-header">', unsafe_allow_html=True)
     st.title("Customer Transaction Insights Dashboard")
-    st.markdown("Gain actionable insights from customer transaction patterns — segmentation, churn, and behavior — like a real data analyst would.")
+    st.markdown("Extract actionable insights on churn, behavior, and segments — powered by real-time analytics and data storytelling.")
     st.markdown('</div>', unsafe_allow_html=True)
 
 with st.container():

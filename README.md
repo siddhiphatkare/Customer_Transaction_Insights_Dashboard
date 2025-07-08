@@ -335,10 +335,10 @@ Open for learning & inspiration — not for rehosting or resale.
 
 ## 🏅 Badges
 
-[![Streamlit](https://img.shields.io/badge/Streamlit-App-green)](https://streamlit.io/)  
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)  
-[![GitHub Stars](https://img.shields.io/github/stars/siddhiphatkare/Customer_Transaction_Insights_Dashboard?style=social)](https://github.com/siddhiphatkare/Customer_Transaction_Insights_Dashboard/stargazers)
-[![Uptime Robot status](https://img.shields.io/uptimerobot/status/m800893009-acfc8d924686cc818da41b4f?label=Live%20Status&style=flat-square)](https://stats.uptimerobot.com/CcMCwisBuV)
+[![Streamlit](https://img.shields.io/badge/Streamlit-App-green)](https://streamlit.io/) &nbsp;&nbsp;
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) &nbsp;&nbsp;
+[![GitHub Stars](https://img.shields.io/github/stars/siddhiphatkare/Customer_Transaction_Insights_Dashboard?style=social)](https://github.com/siddhiphatkare/Customer_Transaction_Insights_Dashboard/stargazers) &nbsp;&nbsp;
+[![Uptime](https://img.shields.io/uptimerobot/status/m800893009-acfc8d924686cc818da41b4f?label=Live%20Status&style=flat-square)](https://stats.uptimerobot.com/CcMCwisBuV) &nbsp;&nbsp;
 [![GA](https://img.shields.io/badge/Tracked%20with-Google%20Analytics-orange?logo=google-analytics&logoColor=white)](https://analytics.google.com/)
 
 ---

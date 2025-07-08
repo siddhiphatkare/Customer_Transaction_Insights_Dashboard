@@ -61,7 +61,7 @@ Simulate how a data analyst would extract insights from transaction data for seg
 ## 📸 Dashboard Preview
 
 ### Main Dashboard
-![Dashboard Preview](images/dashboard_preview.png)
+![Dashboard Preview](images/dashboard_preview_v2.png)
 <sub><p align="center">Capsule KPIs • Real-time filters • Multi-chart layout</p></sub>
 
 

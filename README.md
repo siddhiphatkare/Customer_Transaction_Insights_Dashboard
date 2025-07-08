@@ -80,6 +80,8 @@ Simulate how a data analyst would extract insights from transaction data for seg
 - **Payment Method Preferences**: Payment behavior insights
 - **Churn Analysis**: Configurable purchase threshold detection
 - **Time-based Trends**: Monthly and weekday pattern analysis
+- 📈 **User Interaction Tracking**: Google Analytics integration to monitor feature usage (e.g. export clicks, filter toggles)
+
 
 ### Interactive Features
 - **Real-time Filtering**: Date range, customer type, payment method
@@ -93,7 +95,16 @@ Simulate how a data analyst would extract insights from transaction data for seg
 - **Revenue Attribution**: Channel performance analysis
 
 ---
+## 📊 Analytics & Event Tracking
 
+This app uses **Google Analytics** to track how users interact with key elements like:
+- Download buttons
+- Filters
+- Expandable sections
+
+This helps improve the app based on real usage patterns. No personal data is collected.
+
+---
 ## 🧰 Built With
 
 This project uses the following tech stack:
@@ -328,6 +339,8 @@ Open for learning & inspiration — not for rehosting or resale.
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)  
 [![GitHub Stars](https://img.shields.io/github/stars/siddhiphatkare/Customer_Transaction_Insights_Dashboard?style=social)](https://github.com/siddhiphatkare/Customer_Transaction_Insights_Dashboard/stargazers)
 [![Uptime Robot status](https://img.shields.io/uptimerobot/status/m800893009-acfc8d924686cc818da41b4f?label=Live%20Status&style=flat-square)](https://stats.uptimerobot.com/CcMCwisBuV)
+[![GA](https://img.shields.io/badge/Tracked%20with-Google%20Analytics-orange?logo=google-analytics&logoColor=white)](https://analytics.google.com/)
+
 ---
 
 > 📊 A Python + Streamlit dashboard for customer segmentation, churn analysis, and time-based insights.  

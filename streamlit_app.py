@@ -6,6 +6,23 @@ from io import BytesIO
 from calendar import month_name
 from utils import load_data, to_excel
 
+import streamlit.components.v1 as components
+
+# Inject Google Analytics tracking script
+components.html(
+    """
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YLB6N45Q1Q"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-YLB6N45Q1Q');
+    </script>
+    """,
+    height=0
+)
+
 #  Setting the vibe and visuals
 st.set_page_config(page_title="Customer Transaction Insights Dashboard", layout="wide")
 sns.set(style='whitegrid')
@@ -376,4 +393,158 @@ st.markdown(
     </p>
     """,
     unsafe_allow_html=True
+)
+
+# Google Analytics Event Tracking
+components.html(
+    """
+    <script>
+    // Wait for DOM to be ready and check for gtag availability
+    function initializeTracking() {
+        if (typeof gtag === 'undefined') {
+            console.log('Google Analytics not loaded, retrying...');
+            setTimeout(initializeTracking, 1000);
+            return;
+        }
+        
+        // Track Download Button Clicks
+        function trackDownloadButton() {
+            const downloadButtons = document.querySelectorAll('button[data-testid="baseButton-secondary"]');
+            downloadButtons.forEach(button => {
+                if (button.textContent.includes('Download Excel Report')) {
+                    button.addEventListener('click', function() {
+                        gtag('event', 'download_report', {
+                            'event_category': 'Engagement',
+                            'event_label': 'Excel Report Downloaded',
+                            'value': 1
+                        });
+                        console.log('Download button clicked - GA event sent');
+                    });
+                }
+            });
+        }
+        
+        // Track Churn Threshold Slider Changes
+        function trackChurnSlider() {
+            const sliders = document.querySelectorAll('input[type="range"]');
+            sliders.forEach(slider => {
+                slider.addEventListener('change', function() {
+                    gtag('event', 'churn_threshold_change', {
+                        'event_category': 'Filters',
+                        'event_label': 'Churn Threshold Adjusted',
+                        'value': parseInt(this.value)
+                    });
+                    console.log('Churn threshold changed to:', this.value);
+                });
+            });
+        }
+        
+        // Track Date Filter Changes
+        function trackDateFilters() {
+            const dateInputs = document.querySelectorAll('input[type="date"]');
+            dateInputs.forEach(input => {
+                input.addEventListener('change', function() {
+                    gtag('event', 'date_filter_change', {
+                        'event_category': 'Filters',
+                        'event_label': 'Date Range Modified',
+                        'value': 1
+                    });
+                    console.log('Date filter changed');
+                });
+            });
+        }
+        
+        // Track Multiselect Changes (Customer Type, Payment Methods)
+        function trackMultiselects() {
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.type === 'childList') {
+                        const multiselects = document.querySelectorAll('[data-testid="multiselect"]');
+                        multiselects.forEach(select => {
+                            select.addEventListener('click', function() {
+                                gtag('event', 'multiselect_change', {
+                                    'event_category': 'Filters',
+                                    'event_label': 'Filter Selection Changed',
+                                    'value': 1
+                                });
+                                console.log('Multiselect filter changed');
+                            });
+                        });
+                    }
+                });
+            });
+            
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        }
+        
+        // Track Checkbox Changes (Chart Toggles)
+        function trackCheckboxes() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const label = this.parentElement.textContent || 'Unknown Chart';
+                    gtag('event', 'chart_toggle', {
+                        'event_category': 'Charts',
+                        'event_label': label,
+                        'value': this.checked ? 1 : 0
+                    });
+                    console.log('Chart toggle:', label, this.checked);
+                });
+            });
+        }
+        
+        // Track Reset Filters Button
+        function trackResetButton() {
+            const resetButton = document.querySelector('button[kind="secondary"]');
+            if (resetButton && resetButton.textContent.includes('Reset All Filters')) {
+                resetButton.addEventListener('click', function() {
+                    gtag('event', 'reset_filters', {
+                        'event_category': 'Filters',
+                        'event_label': 'All Filters Reset',
+                        'value': 1
+                    });
+                    console.log('Reset filters button clicked');
+                });
+            }
+        }
+        
+        // Initialize all tracking functions
+        trackDownloadButton();
+        trackChurnSlider();
+        trackDateFilters();
+        trackMultiselects();
+        trackCheckboxes();
+        trackResetButton();
+        
+        // Re-run tracking setup when Streamlit re-renders
+        const observer = new MutationObserver(function(mutations) {
+            setTimeout(() => {
+                trackDownloadButton();
+                trackChurnSlider();
+                trackDateFilters();
+                trackCheckboxes();
+                trackResetButton();
+            }, 500);
+        });
+        
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+        
+        console.log('Google Analytics tracking initialized');
+    }
+    
+    // Start initialization
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeTracking);
+    } else {
+        initializeTracking();
+    }
+    </script>
+    """,
+    height=0
 )

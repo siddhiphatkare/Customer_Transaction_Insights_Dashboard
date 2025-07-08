@@ -327,7 +327,7 @@ Open for learning & inspiration — not for rehosting or resale.
 [![Streamlit](https://img.shields.io/badge/Streamlit-App-green)](https://streamlit.io/)  
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)  
 [![GitHub Stars](https://img.shields.io/github/stars/siddhiphatkare/Customer_Transaction_Insights_Dashboard?style=social)](https://github.com/siddhiphatkare/Customer_Transaction_Insights_Dashboard/stargazers)
-[![Uptime Robot status](https://img.shields.io/uptimerobot/status/m800893009)](https://stats.uptimerobot.com/CcMCwisBuV)
+[![Uptime Robot status](https://img.shields.io/uptimerobot/status/CcMCwisBuV)](https://stats.uptimerobot.com/CcMCwisBuV)
 
 ---
 

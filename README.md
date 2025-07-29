@@ -73,15 +73,12 @@ Simulate how a data analyst would extract insights from transaction data for seg
 📊 **Analytics Suite** | ⏱️ **Time Intelligence** | 💳 **Payment Insights**  
 👥 **Churn Detection** | 🔮 **Predictive Scoring** | 📥 **Export & Reporting**  
 
-### 🔍 Core Features
-
-- **Customer Segmentation**: Analysis of new vs returning customers in a dedicated **Analytics** tab  
-- **Transaction Frequency**: Visualization of customer purchase patterns over time  
-- **Payment Method Preferences**: Behavioral insights into most-used payment modes  
-- **Churn Analysis**: Configurable churn detection logic based on inactivity or purchase thresholds  
-- **Time-based Trends**: Month-wise and weekday-wise transaction distribution  
-- **Cohort Analysis**: Customer lifecycle monitoring and cohort retention visualizations  
-- **Predictive Insights**: Churn probability scoring with predictive analytics logic  
+### Core Analytics
+- **Customer Segmentation**: New vs Returning customer analysis
+- **Transaction Frequency**: Purchase pattern identification
+- **Payment Method Preferences**: Payment behavior insights
+- **Churn Analysis**: Configurable purchase threshold detection
+- **Time-based Trends**: Monthly and weekday pattern analysis
 
 ### ⚙️ Interactive Functionality
 
@@ -98,7 +95,16 @@ Simulate how a data analyst would extract insights from transaction data for seg
 - **Jupyter Notebook Integration**: Enables custom analysis and experimentation using the same dataset  
 
 ---
+## 📊 Analytics & Event Tracking
 
+This app uses **Google Analytics** to track how users interact with key elements like:
+- Download buttons
+- Filters
+- Expandable sections
+
+This helps improve the app based on real usage patterns. No personal data is collected.
+
+---
 ## 🧰 Built With
 
 This project uses the following tech stack:
@@ -327,10 +333,12 @@ Open for learning & inspiration — not for rehosting or resale.
 
 ## 🏅 Badges
 
-[![Streamlit](https://img.shields.io/badge/Streamlit-App-green)](https://streamlit.io/)  
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)  
-[![GitHub Stars](https://img.shields.io/github/stars/siddhiphatkare/Customer_Transaction_Insights_Dashboard?style=social)](https://github.com/siddhiphatkare/Customer_Transaction_Insights_Dashboard/stargazers)
-[![Uptime Robot status](https://img.shields.io/uptimerobot/status/m800893009-acfc8d924686cc818da41b4f?label=Live%20Status&style=flat-square)](https://stats.uptimerobot.com/CcMCwisBuV)
+[![Streamlit](https://img.shields.io/badge/Streamlit-App-green)](https://streamlit.io/) &nbsp;&nbsp;
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) &nbsp;&nbsp;
+[![GitHub Stars](https://img.shields.io/github/stars/siddhiphatkare/Customer_Transaction_Insights_Dashboard?style=social)](https://github.com/siddhiphatkare/Customer_Transaction_Insights_Dashboard/stargazers) &nbsp;&nbsp;
+[![Uptime](https://img.shields.io/uptimerobot/status/m800893009-acfc8d924686cc818da41b4f?label=Live%20Status&style=flat-square)](https://stats.uptimerobot.com/CcMCwisBuV) &nbsp;&nbsp;
+[![GA](https://img.shields.io/badge/Tracked%20with-Google%20Analytics-orange?logo=google-analytics&logoColor=white)](https://analytics.google.com/)
+
 ---
 
 > 📊 A Python + Streamlit dashboard for customer segmentation, churn analysis, and time-based insights.  

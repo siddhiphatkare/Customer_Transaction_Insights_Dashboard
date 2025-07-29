@@ -5,6 +5,7 @@ import pandas as pd
 from io import BytesIO
 from calendar import month_name
 from utils import load_data, to_excel
+from ml_models import MLModels, cluster_customers
 
 import streamlit.components.v1 as components
 
@@ -47,6 +48,26 @@ if start_date > end_date:
 
 # Customer type filter
 customer_type = st.sidebar.multiselect("Select customer type", options=['New', 'Returning'], default=['New', 'Returning'])
+
+# Advanced filters: demographics and product categories
+age_min = int(df['age'].min()) if 'age' in df.columns else None
+age_max = int(df['age'].max()) if 'age' in df.columns else None
+age_range = (age_min, age_max)
+if age_min is not None and age_max is not None:
+    age_range = st.sidebar.slider("Select Age Range", min_value=age_min, max_value=age_max, value=(age_min, age_max))
+
+gender_options = df['gender'].dropna().unique().tolist() if 'gender' in df.columns else []
+selected_genders = st.sidebar.multiselect("Select Gender", options=gender_options, default=gender_options)
+
+product_categories = df['category'].dropna().unique().tolist() if 'category' in df.columns else []
+selected_categories = st.sidebar.multiselect("Select Product Categories", options=product_categories, default=product_categories)
+
+# Price range filter (new)
+price_min = float(df['price'].min()) if 'price' in df.columns else None
+price_max = float(df['price'].max()) if 'price' in df.columns else None
+price_range = (price_min, price_max)
+if price_min is not None and price_max is not None:
+    price_range = st.sidebar.slider("Select Price Range (USD)", min_value=price_min, max_value=price_max, value=(price_min, price_max), step=0.01)
 
 # Payment method filter
 payment_methods = df['payment_method'].unique().tolist()
@@ -189,362 +210,335 @@ with st.container():
 with st.container():
     st.markdown('<div class="content">', unsafe_allow_html=True)
 
-    # Filter data based on selections
-    filtered_df = df[
-        (df['purchase_date'] >= pd.to_datetime(start_date)) &
-        (df['purchase_date'] <= pd.to_datetime(end_date)) &
-        (df['payment_method'].isin(selected_payments))
-    ]
+    tabs = st.tabs(["Overview", "Analytics", "Cohort Analysis", "Churn Summary", "Raw Data", "Data Dictionary"])
 
-    # Map customer type selection to binary values
-    customer_type_map = {'New': 0, 'Returning': 1}
-    selected_customer_type_vals = [customer_type_map[ct] for ct in customer_type]
-    filtered_df = filtered_df[filtered_df['is_returning_customer'].isin(selected_customer_type_vals)]
+    with tabs[0]:
+        # Overview tab content
+        # Filter data based on selections
+        filtered_df = df[
+            (df['purchase_date'] >= pd.to_datetime(start_date)) &
+            (df['purchase_date'] <= pd.to_datetime(end_date)) &
+            (df['payment_method'].isin(selected_payments))
+        ]
 
-    # Summary KPIs
-    st.subheader("Key Performance Indicators")
-    total_customer_types = filtered_df['is_returning_customer'].nunique()
-    total_transactions = filtered_df.shape[0]
-    avg_purchases = filtered_df['previous_purchases'].mean()
+        if age_min is not None and age_max is not None:
+            filtered_df = filtered_df[(filtered_df['age'] >= age_range[0]) & (filtered_df['age'] <= age_range[1])]
 
-    col1, col2, col3 = st.columns(3)
+        if len(gender_options) > 0:
+            filtered_df = filtered_df[filtered_df['gender'].isin(selected_genders)]
 
-    # KPI cards with enhanced insight visibility
-    with col1:
-        st.markdown(f'''
-        <div class="kpi-capsule">
-            <div class="kpi-value">{total_customer_types}</div>
-            <div class="kpi-label">Customer Types Present</div>
-        </div>
-        ''', unsafe_allow_html=True)
-        returning_percentage = ((filtered_df['is_returning_customer'] == 1).sum() / len(filtered_df)) * 100 if len(filtered_df) > 0 else 0
-        st.markdown(f'''
-        <div class="kpi-insight-list">
-            <ul>
-                <li><strong>Insight:</strong> Returning customers make up {returning_percentage:.1f}% of the data.</li>
-            </ul>
-        </div>
-        ''', unsafe_allow_html=True)
-    
-    with col2:
-        st.markdown(f'''
-        <div class="kpi-capsule">
-            <div class="kpi-value">{total_transactions:,}</div>
-            <div class="kpi-label">Total Transactions</div>
-        </div>
-        ''', unsafe_allow_html=True)
-        st.markdown(f'''
-        <div class="kpi-insight-list">
-            <ul>
-                <li><strong>Insight:</strong> Average transactions per customer is {avg_purchases:.2f}.</li>
-            </ul>
-        </div>
-        ''', unsafe_allow_html=True)
-    
-    with col3:
-        st.markdown(f'''
-        <div class="kpi-capsule">
-            <div class="kpi-value">{avg_purchases:.2f}</div>
-            <div class="kpi-label">Average Previous Purchases</div>
-        </div>
-        ''', unsafe_allow_html=True)
-        st.markdown('''
-        <div class="kpi-insight-list">
-            <ul>
-                <li><strong>Insight:</strong> Higher average indicates loyal customers.</li>
-            </ul>
-        </div>
-        ''', unsafe_allow_html=True)
+        if len(product_categories) > 0:
+            filtered_df = filtered_df[filtered_df['category'].isin(selected_categories)]
 
-    if show_segmentation:
-        st.subheader("Customer Segmentation")
-        st.caption("Are people coming back, or just testing the waters?")
+        # Price range filter (new)
+        if price_min is not None and price_max is not None:
+            filtered_df = filtered_df[(filtered_df['price'] >= price_range[0]) & (filtered_df['price'] <= price_range[1])]
+
+        # Map customer type selection to binary values
+        customer_type_map = {'new': 0, 'returning': 1}
+        selected_customer_type_vals = [customer_type_map[ct.lower()] for ct in customer_type]
+        filtered_df = filtered_df[filtered_df['is_returning_customer'].astype(int).isin(selected_customer_type_vals)]
+
+        # Summary KPIs
+        st.subheader("Key Performance Indicators")
+        total_customer_types = filtered_df['is_returning_customer'].nunique()
+        total_transactions = filtered_df.shape[0]
+        avg_purchases = filtered_df['previous_purchases'].mean()
+        col1, col2, col3 = st.columns(3)
+
+        # KPI cards with enhanced insight visibility
+        with col1:
+            st.markdown(f'''
+            <div class="kpi-capsule">
+                <div class="kpi-value">{total_customer_types}</div>
+                <div class="kpi-label">Customer Types Present</div>
+            </div>
+            ''', unsafe_allow_html=True)
+            returning_percentage = ((filtered_df['is_returning_customer'] == 1).sum() / len(filtered_df)) * 100 if len(filtered_df) > 0 else 0
+            st.markdown(f'''
+            <div class="kpi-insight-list">
+                <ul>
+                    <li><strong>Insight:</strong> Returning customers make up {returning_percentage:.1f}% of the data.</li>
+                </ul>
+            </div>
+            ''', unsafe_allow_html=True)
         
-        # Enhanced section insight
-        st.markdown('<div class="section-insight"><strong>Customer Segmentation:</strong> This section shows the distribution of new vs returning customers using bar and pie charts, helping identify customer loyalty patterns.</div>', unsafe_allow_html=True)
+        with col2:
+            st.markdown(f'''
+            <div class="kpi-capsule">
+                <div class="kpi-value">{total_transactions:,}</div>
+                <div class="kpi-label">Total Transactions</div>
+            </div>
+            ''', unsafe_allow_html=True)
+            st.markdown(f'''
+            <div class="kpi-insight-list">
+                <ul>
+                    <li><strong>Insight:</strong> Average transactions per customer is {avg_purchases:.2f}.</li>
+                </ul>
+            </div>
+            ''', unsafe_allow_html=True)
         
-        segment_counts = filtered_df['is_returning_customer'].value_counts().rename({0: 'New', 1: 'Returning'})
-        fig, ax = plt.subplots(1, 2, figsize=(12, 5))
+        with col3:
+            st.markdown(f'''
+            <div class="kpi-capsule">
+                <div class="kpi-value">{avg_purchases:.2f}</div>
+                <div class="kpi-label">Average Previous Purchases</div>
+            </div>
+            ''', unsafe_allow_html=True)
+            st.markdown('''
+            <div class="kpi-insight-list">
+                <ul>
+                    <li><strong>Insight:</strong> Higher average indicates loyal customers.</li>
+                </ul>
+            </div>
+            ''', unsafe_allow_html=True)
 
-        # Bar plot
-        sns.barplot(x=segment_counts.index, y=segment_counts.values, hue=segment_counts.index, palette='pastel', legend=True, ax=ax[0])
-        ax[0].set_title("Customer Segmentation: New vs Returning (Bar Plot)")
-        ax[0].set_ylabel("Number of Customers")
-        ax[0].legend(title='Customer Type')
+        if show_purchase_count:
+            st.subheader("Previous Purchase Count")
+            st.caption("This section provides an overview of customer loyalty by showing the distribution of customers based on their number of previous purchases.")
+            st.markdown('<div class="section-insight"><strong>Previous Purchase Count:</strong> This chart shows the distribution of customers based on how many previous purchases they have made, indicating loyalty levels.</div>', unsafe_allow_html=True)
+            hist_values = filtered_df['previous_purchases'].value_counts().sort_index()
+            st.bar_chart(hist_values)
 
-        # Pie chart
-        colors = sns.color_palette('pastel')[0:2]
-        ax[1].pie(segment_counts.values, labels=segment_counts.index, colors=colors, autopct='%1.1f%%', startangle=140)
-        ax[1].set_title("Customer Segmentation: New vs Returning (Pie Chart)")
-
-        st.pyplot(fig)
-
-    if show_purchase_count:
-        st.subheader("Previous Purchase Count")
-        st.caption("This gives us a quick sense of customer loyalty.")
-        st.markdown('<div class="section-insight"><strong>Previous Purchase Count:</strong> This chart shows the distribution of customers based on how many previous purchases they have made, indicating loyalty levels.</div>', unsafe_allow_html=True)
-        hist_values = filtered_df['previous_purchases'].value_counts().sort_index()
-        st.bar_chart(hist_values)
-
-    if show_payment_pref:
-        st.subheader("Payment Method Preferences")
-        st.caption("Let's see what people actually use when they pay.")
-        st.markdown('<div class="section-insight"><strong>Payment Method Preferences:</strong> This section shows the distribution of payment methods used by customers, highlighting popular transaction modes.</div>', unsafe_allow_html=True)
-        
-        payment_counts = filtered_df['payment_method'].value_counts()
-        fig, ax = plt.subplots(1, 2, figsize=(12, 5))
-
-        # Count plot
-        sns.countplot(data=filtered_df, y='payment_method', order=payment_counts.index, hue='payment_method', palette="Set2", legend=False, ax=ax[0])
-        ax[0].set_title("Payment Method Usage (Count Plot)")
-        ax[0].set_xlabel("Count")
-        ax[0].set_ylabel("Payment Method")
-
-        # Pie chart
-        colors = sns.color_palette('Set2')[0:len(payment_counts)]
-        ax[1].pie(payment_counts.values, labels=payment_counts.index, colors=colors, autopct='%1.1f%%', startangle=140)
-        ax[1].set_title("Payment Method Usage (Pie Chart)")
-
-        st.pyplot(fig)
-
-    if show_purchase_freq:
-        st.subheader("Frequency of Purchases")
-        st.caption("How often do customers shop — according to labels they chose.")
-        st.markdown('<div class="section-insight"><strong>Frequency of Purchases:</strong> This chart shows how frequently customers make purchases, based on their selected frequency labels.</div>', unsafe_allow_html=True)
-        purchase_freq = filtered_df['frequency_of_purchases'].value_counts()
-        st.bar_chart(purchase_freq)
-
-    if show_churn:
-        st.subheader("Customer Churn")
-        st.caption(f"Assuming churners are customers with only {churn_threshold} or fewer past purchases.")
-        st.markdown('<div class="section-insight"><strong>Customer Churn:</strong> This chart identifies customers likely to have churned based on their low number of previous purchases, segmented by new vs returning.</div>', unsafe_allow_html=True)
-        churned = filtered_df[filtered_df['previous_purchases'] <= churn_threshold]
-        churn_summary = churned['is_returning_customer'].value_counts().rename({0: 'New', 1: 'Returning'})
-        st.bar_chart(churn_summary)
-
-    # Extra curiosity: how do payment preferences differ by customer type?
-    with st.expander("Payment Method Split by Customer Type"):
-        cross_tab = pd.crosstab(filtered_df['payment_method'], filtered_df['is_returning_customer'])
-        cross_tab.columns = ['New', 'Returning']
-        st.dataframe(cross_tab)
-
-    if show_time_trends:
-        # Time-Based Trends
-        st.subheader("🕒 Time-Based Transaction Trends")
-        st.caption("Monthly and weekday patterns in customer purchases.")
-        st.markdown('<div class="section-insight"><strong>Time-Based Transaction Trends:</strong> This section shows how transactions vary over months and days of the week, highlighting temporal patterns.</div>', unsafe_allow_html=True)
-
-        # Monthly trend with proper month names
-        st.markdown("**Monthly Transaction Volume**")
-        monthly = (
-            filtered_df.groupby(['month', 'month_name']).size()
-            .reset_index(name='transaction_count')
-            .sort_values('month')
-        )
-        monthly.set_index('month_name', inplace=True)
-        st.line_chart(monthly['transaction_count'])
-
-        # Weekly trend
-        st.markdown("**Transactions by Day of Week**")
-        weekly = filtered_df['day_of_week'].value_counts().reindex(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
-        st.bar_chart(weekly)
-
-# Tooltip for churn threshold slider
-st.sidebar.markdown("ℹ️ **Churn threshold**: Maximum number of previous purchases to consider a customer as churned.")
-
-# Show selected date range below KPIs
-st.markdown(f"### Showing data for **{start_date.strftime('%b %Y')}** to **{end_date.strftime('%b %Y')}**")
-
-# Reset filters button
-if st.sidebar.button("Reset All Filters"):
-    st.experimental_rerun()
-
-#  Visual separator
-st.markdown("---")
-
-#  Export section
-st.subheader("📥 Export Data")
-st.markdown("Download the filtered dataset as an Excel report.")
-st.markdown("Click below to download the filtered Excel report ⬇️")
-
-# Generate Excel data
-excel_data = to_excel(filtered_df)
-
-# Styled download button
-st.download_button(
-    label='📥 Download Excel Report',
-    data=excel_data,
-    file_name='customer_transaction_report.xlsx',
-    mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    key='download-excel',
-    help='Download the filtered dataset as an Excel report',
-)
-
-# Spacing before footer
-st.markdown(" ")
-
-# Footer credit
-st.markdown(
-    """
-    <p style='text-align: center; color: #666; font-size: 14px; margin-top: 2rem;'>
-        📊 Built by <a href='https://www.linkedin.com/in/siddhi-phatkare-a78552250/' 
-        target='_blank' style='color: #0066cc; text-decoration: none;'>Siddhi Phatkare</a> 
-        • Open for learning & inspiration, not rehosting.
-    </p>
-    """,
-    unsafe_allow_html=True
-)
-
-# Google Analytics Event Tracking
-components.html(
-    """
-    <script>
-    // Wait for DOM to be ready and check for gtag availability
-    function initializeTracking() {
-        if (typeof gtag === 'undefined') {
-            console.log('Google Analytics not loaded, retrying...');
-            setTimeout(initializeTracking, 1000);
-            return;
-        }
-        
-        // Track Download Button Clicks
-        function trackDownloadButton() {
-            const downloadButtons = document.querySelectorAll('button[data-testid="baseButton-secondary"]');
-            downloadButtons.forEach(button => {
-                if (button.textContent.includes('Download Excel Report')) {
-                    button.addEventListener('click', function() {
-                        gtag('event', 'download_report', {
-                            'event_category': 'Engagement',
-                            'event_label': 'Excel Report Downloaded',
-                            'value': 1
-                        });
-                        console.log('Download button clicked - GA event sent');
-                    });
-                }
-            });
-        }
-        
-        // Track Churn Threshold Slider Changes
-        function trackChurnSlider() {
-            const sliders = document.querySelectorAll('input[type="range"]');
-            sliders.forEach(slider => {
-                slider.addEventListener('change', function() {
-                    gtag('event', 'churn_threshold_change', {
-                        'event_category': 'Filters',
-                        'event_label': 'Churn Threshold Adjusted',
-                        'value': parseInt(this.value)
-                    });
-                    console.log('Churn threshold changed to:', this.value);
-                });
-            });
-        }
-        
-        // Track Date Filter Changes
-        function trackDateFilters() {
-            const dateInputs = document.querySelectorAll('input[type="date"]');
-            dateInputs.forEach(input => {
-                input.addEventListener('change', function() {
-                    gtag('event', 'date_filter_change', {
-                        'event_category': 'Filters',
-                        'event_label': 'Date Range Modified',
-                        'value': 1
-                    });
-                    console.log('Date filter changed');
-                });
-            });
-        }
-        
-        // Track Multiselect Changes (Customer Type, Payment Methods)
-        function trackMultiselects() {
-            const observer = new MutationObserver(function(mutations) {
-                mutations.forEach(function(mutation) {
-                    if (mutation.type === 'childList') {
-                        const multiselects = document.querySelectorAll('[data-testid="multiselect"]');
-                        multiselects.forEach(select => {
-                            select.addEventListener('click', function() {
-                                gtag('event', 'multiselect_change', {
-                                    'event_category': 'Filters',
-                                    'event_label': 'Filter Selection Changed',
-                                    'value': 1
-                                });
-                                console.log('Multiselect filter changed');
-                            });
-                        });
-                    }
-                });
-            });
+        if show_payment_pref:
+            st.subheader("Payment Method Preferences")
+            st.caption("This section highlights the payment methods preferred by customers, providing insights into popular transaction modes.")
+            st.markdown('<div class="section-insight"><strong>Payment Method Preferences:</strong> This section shows the distribution of payment methods used by customers, highlighting popular transaction modes.</div>', unsafe_allow_html=True)
             
-            observer.observe(document.body, {
-                childList: true,
-                subtree: true
-            });
+            payment_counts = filtered_df['payment_method'].value_counts()
+            fig, ax = plt.subplots(1, 2, figsize=(12, 5))
+
+            # Count plot
+            sns.countplot(data=filtered_df, y='payment_method', order=payment_counts.index, hue='payment_method', palette="Set2", legend=False, ax=ax[0])
+            ax[0].set_title("Payment Method Usage (Count Plot)")
+            ax[0].set_xlabel("Count")
+            ax[0].set_ylabel("Payment Method")
+
+            # Pie chart
+            colors = sns.color_palette('Set2')[0:len(payment_counts)]
+            ax[1].pie(payment_counts.values, labels=payment_counts.index, colors=colors, autopct='%1.1f%%', startangle=140)
+            ax[1].set_title("Payment Method Usage (Pie Chart)")
+
+            st.pyplot(fig)
+
+        if show_purchase_freq:
+            st.subheader("Frequency of Purchases")
+            st.caption("This section analyzes how frequently customers make purchases, categorized by their selected frequency labels.")
+            st.markdown('<div class="section-insight"><strong>Frequency of Purchases:</strong> This chart shows how frequently customers make purchases, based on their selected frequency labels.</div>', unsafe_allow_html=True)
+            purchase_freq = filtered_df['frequency_of_purchases'].value_counts()
+            st.bar_chart(purchase_freq)
+
+        if show_churn:
+            st.subheader("Customer Churn")
+            st.caption(f"This section identifies customers likely to have churned, defined as those with {churn_threshold} or fewer previous purchases, segmented by new vs returning customers.")
+            st.markdown('<div class="section-insight"><strong>Customer Churn:</strong> This chart identifies customers likely to have churned based on their low number of previous purchases, segmented by new vs returning.</div>', unsafe_allow_html=True)
+            churned = filtered_df[filtered_df['previous_purchases'] <= churn_threshold]
+            churn_summary = churned['is_returning_customer'].value_counts()
+
+            # Ensure both 'New' and 'Returning' labels are present in the churn_summary
+            for label in [0, 1]:
+                if label not in churn_summary.index:
+                    churn_summary.loc[label] = 0
+            churn_summary = churn_summary.sort_index()
+            churn_summary.index = churn_summary.index.map({0: 'New', 1: 'Returning'})
+
+            st.bar_chart(churn_summary)
+
+        # Extra curiosity: how do payment preferences differ by customer type?
+        with st.expander("Payment Method Split by Customer Type"):
+            cross_tab = pd.crosstab(filtered_df['payment_method'], filtered_df['is_returning_customer'])
+            # Fix: Only rename columns if both 0 and 1 are present to avoid length mismatch error
+            if set(cross_tab.columns) == {0, 1}:
+                cross_tab.columns = ['New', 'Returning']
+            elif set(cross_tab.columns) == {0}:
+                cross_tab.columns = ['New']
+            elif set(cross_tab.columns) == {1}:
+                cross_tab.columns = ['Returning']
+            st.dataframe(cross_tab)
+
+        if show_time_trends:
+            # Time-Based Trends
+            st.subheader("🕒 Time-Based Transaction Trends")
+            st.caption("Monthly and weekday patterns in customer purchases.")
+            st.markdown('<div class="section-insight"><strong>Time-Based Transaction Trends:</strong> This section shows how transactions vary over months and days of the week, highlighting temporal patterns.</div>', unsafe_allow_html=True)
+
+            # Monthly trend with proper month names
+            st.markdown("**Monthly Transaction Volume**")
+            monthly = (
+                filtered_df.groupby(['month', 'month_name']).size()
+                .reset_index(name='transaction_count')
+                .sort_values('month')
+            )
+            monthly.set_index('month_name', inplace=True)
+            st.line_chart(monthly['transaction_count'])
+
+            # Weekly trend
+            st.markdown("**Transactions by Day of Week**")
+            weekly = filtered_df['day_of_week'].value_counts().reindex(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
+            st.bar_chart(weekly)
+
+    with tabs[1]:
+        # Analytics tab content
+        filtered_df = df[
+            (df['purchase_date'] >= pd.to_datetime(start_date)) &
+            (df['purchase_date'] <= pd.to_datetime(end_date)) &
+            (df['payment_method'].isin(selected_payments))
+        ]
+
+        if age_min is not None and age_max is not None:
+            filtered_df = filtered_df[(filtered_df['age'] >= age_range[0]) & (filtered_df['age'] <= age_range[1])]
+
+        if len(gender_options) > 0:
+            filtered_df = filtered_df[filtered_df['gender'].isin(selected_genders)]
+
+        if len(product_categories) > 0:
+            filtered_df = filtered_df[filtered_df['category'].isin(selected_categories)]
+
+        # Price range filter (new)
+        if price_min is not None and price_max is not None:
+            filtered_df = filtered_df[(filtered_df['price'] >= price_range[0]) & (filtered_df['price'] <= price_range[1])]
+
+        # Map customer type selection to binary values
+        customer_type_map = {'new': 0, 'returning': 1}
+        selected_customer_type_vals = [customer_type_map[ct.lower()] for ct in customer_type]
+        filtered_df = filtered_df[filtered_df['is_returning_customer'].astype(int).isin(selected_customer_type_vals)]
+
+        if show_segmentation:
+            st.subheader("Customer Segmentation")
+            st.caption("Are people coming back, or just testing the waters?")
+            
+            st.markdown('<div class="section-insight"><strong>Customer Segmentation:</strong> This section shows the distribution of new vs returning customers using bar and pie charts, helping identify customer loyalty patterns.</div>', unsafe_allow_html=True)
+            
+            segment_counts = filtered_df['is_returning_customer'].value_counts().rename({0: 'New', 1: 'Returning'})
+            fig, ax = plt.subplots(1, 2, figsize=(12, 5))
+
+            sns.barplot(x=segment_counts.index, y=segment_counts.values, hue=segment_counts.index, palette='pastel', legend=True, ax=ax[0])
+            ax[0].set_title("Customer Segmentation: New vs Returning (Bar Plot)")
+            ax[0].set_ylabel("Number of Customers")
+            ax[0].legend(title='Customer Type')
+
+            colors = sns.color_palette('pastel')[0:2]
+            ax[1].pie(segment_counts.values, labels=segment_counts.index, colors=colors, autopct='%1.1f%%', startangle=140)
+            ax[1].set_title("Customer Segmentation: New vs Returning (Pie Chart)")
+
+            st.pyplot(fig)
+
+        # Add download excel report button here for better visibility
+        excel_data = to_excel(filtered_df)
+        st.download_button(
+            label="Download Excel Report",
+            data=excel_data,
+            file_name="customer_transaction_insights_report.xlsx",
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        )
+
+    with tabs[2]:
+        # Cohort Analysis tab content
+        st.header("Cohort Analysis")
+        # Implement cohort analysis visualization here
+        st.markdown("This section provides cohort analysis visualizations to track customer lifecycle and behavior over time, helping identify retention and engagement patterns.")
+        # Example: cohort analysis by month and customer type
+        cohort_data = df.copy()
+        cohort_data['purchase_month'] = cohort_data['purchase_date'].dt.to_period('M')
+        cohort_counts = cohort_data.groupby(['purchase_month', 'is_returning_customer']).size().unstack(fill_value=0)
+        st.line_chart(cohort_counts)
+
+    with tabs[3]:
+        # Churn Summary tab content
+        st.header("Churn Summary")
+        churn_threshold_val = churn_threshold
+        churned_customers = filtered_df[filtered_df['previous_purchases'] <= churn_threshold_val]
+        churn_summary = churned_customers['is_returning_customer'].value_counts().rename({0: 'New', 1: 'Returning'})
+
+        # Additional KPIs
+        total_churned = churned_customers.shape[0]
+        total_customers = filtered_df.shape[0]
+        churn_rate = (total_churned / total_customers) * 100 if total_customers > 0 else 0
+
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            st.metric("Total Churned Customers", total_churned)
+        with col2:
+            st.metric("Total Customers", total_customers)
+        with col3:
+            st.metric("Churn Rate (%)", f"{churn_rate:.2f}")
+
+        # Bar chart of churn summary
+        st.subheader("Churned Customers by Customer Type")
+        if total_churned == 0:
+            st.write("No churned customers to display in the bar chart.")
+        else:
+            st.bar_chart(churn_summary)
+
+        # Pie chart for churn distribution
+        st.subheader("Churn Distribution")
+        fig, ax = plt.subplots(figsize=(2, 2))  # Adjust figure size to be smaller and square
+        colors = sns.color_palette('pastel')[0:2]
+        labels = ['New', 'Returning']
+        # Fix: Use string labels to get values from churn_summary since index was renamed
+        values = [churn_summary.get('New', 0), churn_summary.get('Returning', 0)]
+        total = sum(values)
+        if total == 0:
+            st.write("No churned customers to display in the pie chart.")
+        else:
+            ax.pie(values, labels=labels, colors=colors, autopct='%1.1f%%', startangle=140)
+            ax.set_title("Churn Distribution: New vs Returning")
+            st.pyplot(fig)
+
+        # Textual insights
+        st.markdown(
+            f"""
+            <div class="kpi-insight-prominent">
+            <strong>Insights:</strong>
+            <ul>
+                <li>Churn rate is {churn_rate:.2f}% based on the threshold of {churn_threshold_val} previous purchases.</li>
+                <li>Returning customers constitute {(churn_summary.get('Returning', 0) / total_churned * 100) if total_churned > 0 else 0:.1f}% of churned customers.</li>
+                <li>New customers constitute {(churn_summary.get('New', 0) / total_churned * 100) if total_churned > 0 else 0:.1f}% of churned customers.</li>
+            </ul>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+    with tabs[4]:
+        # Raw Data tab content
+        st.header("Raw Data")
+        st.markdown("This section displays the raw transaction data in a tabular format with interactive filters. Users can explore individual records and download the filtered dataset as an Excel file for offline analysis.")
+        raw_df = df.copy()
+        raw_df['is_returning_customer'] = raw_df['customer_type'].map({'new': 0, 'returning': 1})
+        st.dataframe(raw_df)
+        towrite = BytesIO()
+        raw_df.to_excel(towrite, index=False, header=True)
+        towrite.seek(0)
+        st.download_button(label="Download data as Excel", data=towrite, file_name="shopping_trends.xlsx", mime="application/vnd.ms-excel")
+
+    with tabs[5]:
+        # Data Dictionary tab content
+        st.header("Data Dictionary")
+        st.write("Data dictionary for dataset columns.")
+        data_dict = {
+            "customer_id": "Unique identifier for each customer",
+            "age": "Age of the customer",
+            "gender": "Gender of the customer",
+            "item_purchased": "Item purchased by the customer",
+            "category": "Category of the purchased item",
+            "purchase_amount_(usd)": "Amount spent in USD",
+            "location": "Customer location",
+            "size": "Size of the item",
+            "color": "Color of the item",
+            "season": "Season of purchase",
+            "review_rating": "Customer review rating",
+            "subscription_status": "Subscription status of the customer",
+            "payment_method": "Payment method used",
+            "shipping_type": "Type of shipping selected",
+            "discount_applied": "Whether discount was applied",
+            "promo_code_used": "Whether promo code was used",
+            "previous_purchases": "Number of previous purchases by the customer",
+            "preferred_payment_method": "Customer's preferred payment method",
+            "frequency_of_purchases": "Frequency of purchases by the customer",
+            "purchase_date": "Date of purchase",
+            "customer_type": "Type of customer: New or Returning based on previous purchases"
         }
-        
-        // Track Checkbox Changes (Chart Toggles)
-        function trackCheckboxes() {
-            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            checkboxes.forEach(checkbox => {
-                checkbox.addEventListener('change', function() {
-                    const label = this.parentElement.textContent || 'Unknown Chart';
-                    gtag('event', 'chart_toggle', {
-                        'event_category': 'Charts',
-                        'event_label': label,
-                        'value': this.checked ? 1 : 0
-                    });
-                    console.log('Chart toggle:', label, this.checked);
-                });
-            });
-        }
-        
-        // Track Reset Filters Button
-        function trackResetButton() {
-            const resetButton = document.querySelector('button[kind="secondary"]');
-            if (resetButton && resetButton.textContent.includes('Reset All Filters')) {
-                resetButton.addEventListener('click', function() {
-                    gtag('event', 'reset_filters', {
-                        'event_category': 'Filters',
-                        'event_label': 'All Filters Reset',
-                        'value': 1
-                    });
-                    console.log('Reset filters button clicked');
-                });
-            }
-        }
-        
-        // Initialize all tracking functions
-        trackDownloadButton();
-        trackChurnSlider();
-        trackDateFilters();
-        trackMultiselects();
-        trackCheckboxes();
-        trackResetButton();
-        
-        // Re-run tracking setup when Streamlit re-renders
-        const observer = new MutationObserver(function(mutations) {
-            setTimeout(() => {
-                trackDownloadButton();
-                trackChurnSlider();
-                trackDateFilters();
-                trackCheckboxes();
-                trackResetButton();
-            }, 500);
-        });
-        
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true
-        });
-        
-        console.log('Google Analytics tracking initialized');
-    }
-    
-    // Start initialization
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initializeTracking);
-    } else {
-        initializeTracking();
-    }
-    </script>
-    """,
-    height=0
-)
+        dict_df = pd.DataFrame(list(data_dict.items()), columns=["Column", "Description"])
+        st.table(dict_df)
+

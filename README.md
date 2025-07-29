@@ -64,33 +64,38 @@ Simulate how a data analyst would extract insights from transaction data for seg
 ![Dashboard Preview](images/dashboard_preview_v2.png)
 <sub><p align="center">Capsule KPIs • Real-time filters • Multi-chart layout</p></sub>
 
-
 > 💡 *The KPI insights are now more readable, aligned, and easier to interpret with real-time filtering capabilities.*
 
 ---
 
 ## 🚀 Features
 
-📊 **Analytics** | ⏱️ **Time Intelligence** | 💳 **Payment Analysis**  
-👥 **Churn Prediction** | 📈 **KPI Monitoring** | 📥 **Export Tools**  
+📊 **Analytics Suite** | ⏱️ **Time Intelligence** | 💳 **Payment Insights**  
+👥 **Churn Detection** | 🔮 **Predictive Scoring** | 📥 **Export & Reporting**  
 
-### Core Analytics
-- **Customer Segmentation**: New vs Returning customer analysis
-- **Transaction Frequency**: Purchase pattern identification
-- **Payment Method Preferences**: Payment behavior insights
-- **Churn Analysis**: Configurable purchase threshold detection
-- **Time-based Trends**: Monthly and weekday pattern analysis
+### 🔍 Core Features
 
-### Interactive Features
-- **Real-time Filtering**: Date range, customer type, payment method
-- **Dynamic KPIs**: Capsule-style metrics with aligned insights
-- **Export Capabilities**: Download filtered datasets as Excel reports
-- **Responsive Design**: Works on desktop and mobile browsers
+- **Customer Segmentation**: Analysis of new vs returning customers in a dedicated **Analytics** tab  
+- **Transaction Frequency**: Visualization of customer purchase patterns over time  
+- **Payment Method Preferences**: Behavioral insights into most-used payment modes  
+- **Churn Analysis**: Configurable churn detection logic based on inactivity or purchase thresholds  
+- **Time-based Trends**: Month-wise and weekday-wise transaction distribution  
+- **Cohort Analysis**: Customer lifecycle monitoring and cohort retention visualizations  
+- **Predictive Insights**: Churn probability scoring with predictive analytics logic  
 
-### Advanced Capabilities
-- **Predictive Insights**: Churn probability scoring
-- **Cohort Analysis**: Customer lifecycle tracking
-- **Revenue Attribution**: Channel performance analysis
+### ⚙️ Interactive Functionality
+
+- **Real-time Filtering**: Dynamic filters for date range, customer type, payment method, and more  
+- **Dynamic KPIs**: Capsule-style indicators for total sales, average order value, customer counts, and trends  
+- **Export Capabilities**: Download filtered datasets as **Excel reports** directly from the **Analytics** tab  
+- **Responsive Design**: Optimized for both desktop and mobile browser experiences  
+- **Advanced Visualizations**: Includes line charts, bar graphs, pie charts, and interactive data tables  
+- **User-friendly Interface**: Sidebar filters, collapsible chart sections, and intuitive navigation  
+
+### 📘 Bonus Features
+
+- **Data Dictionary**: Tab with detailed column descriptions and metric definitions for transparency  
+- **Jupyter Notebook Integration**: Enables custom analysis and experimentation using the same dataset  
 
 ---
 
@@ -184,29 +189,28 @@ Original dataset sourced from: [Shopping Trends Dataset - Kaggle](https://www.ka
 ```python
 # Expected CSV structure
 columns = {
-    'customer_id': 'string',                    
-    'age': 'int',                               
-    'gender': 'string',                         
-    'item_purchased': 'string',                
-    'category': 'string',                      
-    'purchase_amount_(usd)': 'float',           
-    'location': 'string',                      
-    'size': 'string',                           
-    'color': 'string',                          
-    'season': 'string',                        
-    'review_rating': 'float',                   
-    'subscription_status': 'string',            
-    'payment_method': 'string',                 
-    'shipping_type': 'string',                 
-    'discount_applied': 'string',               
-    'promo_code_used': 'string',                
-    'previous_purchases': 'int',               
-    'preferred_payment_method': 'string',       
-    'frequency_of_purchases': 'string',         
-    'purchase_date': 'date'  # *Manually added for time-based analysis*
-                 
+    'customer_id': 'string',
+    'age': 'int',
+    'gender': 'string',
+    'item_purchased': 'string',
+    'category': 'string',
+    'purchase_amount_(usd)': 'float',
+    'location': 'string',
+    'size': 'string',
+    'color': 'string',
+    'season': 'string',
+    'review_rating': 'float',
+    'payment_method': 'string',
+    'shipping_type': 'string',
+    'discount_applied': 'string',
+    'promo_code_used': 'string',
+    'previous_purchases': 'int',
+    'preferred_payment_method': 'string',
+    'frequency_of_purchases': 'string',
+    'purchase_date': 'date',
+    'customer_type': 'string',                
+    'is_returning_customer': 'bool'           
 }
-
 ```
 
 ### Data Requirements
@@ -249,10 +253,10 @@ columns = {
 ```
 
 ---
+
 ## 🏗️ Project Structure
 
 ```
-
 Customer_Transaction_Insights_Dashboard/
 ├── streamlit_app.py                               # Main dashboard application
 ├── Customer_Transaction_Insights_Dashboard.ipynb  # Detailed analysis notebook
@@ -263,9 +267,10 @@ Customer_Transaction_Insights_Dashboard/
 │    dashboard_preview.png
 ├── README.md                                      # This file
 └── LICENSE                                        # MIT License
-
 ```
+
 ---
+
 ## 🔧 Customization & Scalability
 
 ```python
@@ -292,8 +297,6 @@ DEFAULT_CHART_THEME = 'plotly_white'
 - Ensure Python 3.8+ is installed
 - For minimal setup: Run  `pip install streamlit pandas seaborn plotly`
 - For complete setup: Run `pip install --upgrade -r requirements.txt`
-
-
 
 ### Data Errors
 - Check CSV encoding: `utf-8-sig`
@@ -332,25 +335,3 @@ Open for learning & inspiration — not for rehosting or resale.
 
 > 📊 A Python + Streamlit dashboard for customer segmentation, churn analysis, and time-based insights.  
 > View clean capsule KPIs, filter live data, and export Excel reports — all in one click.
-
----
-
-## 🙌 Support & Connect
-
-If you found this project useful, insightful, or inspiring:  
-⭐ Give it a star on GitHub — it helps others discover it and shows your support!  
-Fork it, build on top of it, or reach out to collaborate.
-
-📬 Let's connect on [LinkedIn](https://www.linkedin.com/in/siddhi-phatkare-a78552250/)!
-
-🐞 Found a bug or want to request a feature? [Open an issue here](https://github.com/siddhiphatkare/Customer_Transaction_Insights_Dashboard/issues)
-
----
-
-Made with ❤️ by [Siddhi Phatkare](https://www.linkedin.com/in/siddhi-phatkare-a78552250/)  
-📊 Empowering data-driven storytelling, one dashboard at a time.
-
----
-
-> **Tags**: Customer Transaction Dashboard, Streamlit Portfolio Project, Python Data Analysis, E-commerce Churn Analysis, Excel Export Tool, Real-time Insights
-
